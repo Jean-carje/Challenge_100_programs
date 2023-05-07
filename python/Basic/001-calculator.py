@@ -41,7 +41,23 @@ def divide(num1, num2):
         return num1 / num2
     
 def exponentiation(base, exp):
-    count
+    if exp == 0:
+        return 1
+    elif exp == 1:
+        return base
+    else:
+        return base ** exp
+
+def root(raiz, index):
+    result = 1
+    while True:
+        op = result ** index
+        if op == raiz:
+            return result
+        else:
+            result += 1
+
+
 
 # Code for print
 # Prompt the user for input and perform the selected operation
@@ -74,6 +90,12 @@ if choice in [1, 2, 3, 4]:
     else:
         print("Invalid choice")
 elif choice in [5, 6]:
-    pass
-
+    num1 = int(input("Enter the base/radical number: "))
+    num2 = int(input("Enter the exp/index number: "))
+    if choice == 5:
+        result = exponentiation(num1, num2)
+        print("Result: ", result)
+    else:
+        result = root(num1, num2)
+        print("Result: ", result)
 
