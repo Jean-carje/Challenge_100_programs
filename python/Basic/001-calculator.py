@@ -32,32 +32,50 @@ def subtract(num1, num2):
 
 def multiply(num1, num2):
     return num1 * num2
-
+# /////////////////////////////////////////////////////////////////
+# ERROR: The division function does not properly handle cases where the
+#  second number is a text string instead of a number.
+# def divide(num1, num2):
+#     # Handle division by zero errors
+#     if num2 == 0:
+#         return "Error: Division by zero"
+#     else:
+#         return num1 / num2
+# -----------------------------------------------------------------
+# Best Code
 def divide(num1, num2):
-    # Handle division by zero errors
-    if num2 == 0:
-        return "Error: Division by zero"
-    else:
+    # Handle division by zero errors and string input errors
+    try:
         return num1 / num2
+    except ZeroDivisionError:
+        return "Error: Division by zero"
+    except TypeError:
+        return "Error: Invalid input"
+# /////////////////////////////////////////////////////////////////
     
 def exponentiation(base, exp):
-    if exp == 0:
-        return 1
-    elif exp == 1:
-        return base
+    return pow(base, exp)
+
+# /////////////////////////////////////////////////////////////////
+# ERROR: The root functions do not properly handle negative cases.
+#  For example, if the root function is called with a negative
+#  number and an even index, it should not return a real answer.
+# def root(raiz, index):
+#     result = 1
+#     while True:
+#         op = result ** index
+#         if op == raiz:
+#             return result
+#         else:
+#             result += 1
+# -----------------------------------------------------------------
+# Best Code
+def root(num):
+    if num < 0:
+        return "Error: Imaginary number"
     else:
-        return base ** exp
-
-def root(raiz, index):
-    result = 1
-    while True:
-        op = result ** index
-        if op == raiz:
-            return result
-        else:
-            result += 1
-
-
+        return num ** 0.5
+# /////////////////////////////////////////////////////////////////
 
 # Code for print
 # Prompt the user for input and perform the selected operation
@@ -90,12 +108,14 @@ if choice in [1, 2, 3, 4]:
     else:
         print("Invalid choice")
 elif choice in [5, 6]:
-    num1 = int(input("Enter the base/radical number: "))
-    num2 = int(input("Enter the exp/index number: "))
+    num1 = float(input("Enter the number: "))
     if choice == 5:
+        num2 = float(input("Enter the exp/index number: "))
         result = exponentiation(num1, num2)
         print("Result: ", result)
     else:
-        result = root(num1, num2)
+        result = root(num1)
         print("Result: ", result)
+else:
+    print("Invalid choice")
 
