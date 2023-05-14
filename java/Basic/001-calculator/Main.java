@@ -24,6 +24,15 @@ import java.lang.Math;
 
 public class Main {
     public static void main(String[] args) {
+
+        System.out.println("Select an operation:");
+        System.out.println("1. Add");
+        System.out.println("2. Subtract");
+        System.out.println("3. Multiply");
+        System.out.println("4. Divide");
+        System.out.println("5. Exponentiation");
+        System.out.println("6. Root");
+
     }
 
     // # functions for each arithmetic operation
@@ -39,12 +48,16 @@ public class Main {
         return num1 * num2;
     }
 
-    public static int divide(int num1, int num2) {
-        return num1 / num2;
+    public static String divide(int num1, int num2) {
+        if (num1 > 0 && num2 > 0) {
+            return Integer.toString(num1 / num2);
+        } else {
+            return "Error: Invalid input";
+        }
     }
 
     public static double exponentiation(int base, int exp) {
-        return base ** exp;
+        return Math.pow(base, exp);
     }
 
     public static double root(int num1) {
