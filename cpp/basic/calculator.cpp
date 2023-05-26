@@ -23,25 +23,85 @@
 
 #include <iostream>
 #include <cmath>
+#include <string>
 
+// # functions for each arithmetic operation
+double add(double num1, double num2) {
+    return num1 + num2;
+}
+double subtract(double num1, double num2) {
+    return num1 - num2;
+}
+double multiply(double num1, double num2) {
+    return num1 * num2;
+}
+std::string divide(double num1, double num2) {
+    if (num1 == 0.0 || num2 == 0.0) {
+        return "Error: Invalid input";
+    } 
+    return std::to_string(num1 / num2);
+}
+double exponentiation(double base, double exp) {
+    return std::pow(base, exp);
+}
+
+double root(double num) {
+    if (num < 0) {
+        return -1.0; // error
+    } else {
+        return std::sqrt(num);
+    }
+}
+
+// ---------------------------------------------------
 int main() {
-    // # functions for each arithmetic operation
-    int add(int num1, int num2) {
-        return num1 + num2;
-    }
-    int subtract(int num1, int num2) {
-        return num1 - num2;
-    }
-    int multiply(int num1, int num2) {
-        return num1 * num2;
-    }
-    int divide(int num1, int num2) {
-        return num1 / num2;
-    }
-    int exponentiation(int base, int exp) {
-        return base ** exp;
-    }
+    std::cout << "Select an operation:\n";
+    std::cout << "1. Add\n";
+    std::cout << "2. Subtract\n";
+    std::cout << "3. Multiply\n";
+    std::cout << "4. Divide\n";
+    std::cout << "5. Exponentiation\n";
+    std::cout << "6. Root\n";
 
+    std::cout << "Enter your choice (1-6): ";
+    int choice;
+    std::cin >> choice;
+
+    if (choice == 6) {
+        std::cout << "Enter the number: ";
+        double num;
+        std::cin >> num;
+        std::cout << "Result: " << root(num);
+    } else if (choice > 6 || choice < 1) {
+        std::cout << "Invalid choice";
+    } else {
+        double num1;
+        std::cout << "Enter the first number : ";
+        std::cin >> num1;
+        double num2;
+        std::cout << "Enter the second number : ";
+        std::cin >> num2;
+        switch (choice) {
+            case 1:
+                std::cout << "Result: " << add(num1, num2);
+                break;
+            case 2:
+                std::cout << "Result: " << subtract(num1, num2);
+                break;
+            case 3:
+                std::cout << "Result: " << multiply(num1, num2);
+                break;
+            case 4:
+                std::cout << "Result: " << divide(num1, num2);
+                break;
+            case 5:
+                std::cout << "Result: " << exponentiation(num1, num2);
+                break;
+            default:
+                break;
+        }
+    }
     return 0;
+
 }
 
