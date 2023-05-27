@@ -21,9 +21,11 @@
 // # The result will be displayed on the screen.
 
 import java.lang.Math;
+import java.util.Scanner;
 
-public class Main {
+public class Calculator {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
         System.out.println("Select an operation:");
         System.out.println("1. Add");
@@ -33,9 +35,43 @@ public class Main {
         System.out.println("5. Exponentiation");
         System.out.println("6. Root");
 
+        System.out.print("Enter your choice (1-6): ");
+        int choice = scanner.nextInt();
+
+        if (choice >= 1 && choice <= 5) {
+            System.out.print("Enter the first number: ");
+            int num1 = scanner.nextInt();
+            System.out.print("Enter the second number: ");
+            int num2 = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Result: " + add(num1, num2));
+                    break;
+                case 2:
+                    System.out.println("Result: " + subtract(num1, num2));
+                    break;
+                case 3:
+                    System.out.println("Result: " + multiply(num1, num2));
+                    break;
+                case 4:
+                    System.out.println("Result: " + divide(num1, num2));
+                    break;
+                case 5:
+                    System.out.println("Result: " + exponentiation(num1, num2));
+                    break;
+            }
+        } else if (choice == 6) {
+            System.out.print("Enter the number: ");
+            int num = scanner.nextInt();
+            System.out.println("Result: " + root(num));
+        } else {
+            System.out.println("Invalid choice");
+        }
     }
 
-    // # functions for each arithmetic operation
+    // Functions for each arithmetic operation
+
     public static int add(int num1, int num2) {
         return num1 + num2;
     }
@@ -49,10 +85,10 @@ public class Main {
     }
 
     public static String divide(int num1, int num2) {
-        if (num1 > 0 && num2 > 0) {
+        if (num2 != 0) {
             return Integer.toString(num1 / num2);
         } else {
-            return "Error: Invalid input";
+            return "Error: Division by zero";
         }
     }
 
@@ -60,7 +96,7 @@ public class Main {
         return Math.pow(base, exp);
     }
 
-    public static double root(int num1) {
-        return Math.sqrt(num1);
+    public static double root(int num) {
+        return Math.sqrt(num);
     }
 }
