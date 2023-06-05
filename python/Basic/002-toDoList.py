@@ -9,20 +9,22 @@ import os
 import os.path
 import datetime
 import sqlite3
+import json
 
 # variables
 current_date = datetime.date.today()
 file_data_source = os.getcwd()
-NAME_FOLDER_DATA = "toDo_DATA"
-dir_folder_data = os.path.join(file_data_source, NAME_FOLDER_DATA)
+# NAME_FOLDER_DATA = "toDo_DATA"
+# dir_folder_data = os.path.join(file_data_source, NAME_FOLDER_DATA)
 data_today = {}
 
 # functions
 def create_database():
     conn = sqlite3.connect('todo_list.db')
     c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS tasks
-                 (date DATE, text TEXT)''')
+    c.execute('''CREATE TABLE IF NOT EXISTS tasks (
+                due_date DATE, 
+                task_description TEXT)''')
     conn.commit()
     conn.close()
 
@@ -37,6 +39,15 @@ def new_toDo_list(name):
     print(f"\t\tToday: {current_date}")
     print("[ ] ...")
     print("\t1-Add\t2-modify\t3-delete")
+    choice = input(">> ")
+    if choice == "1":
+        pass
+    elif choice == "2":
+        pass
+    elif choice == "3":
+        pass
+    else:
+        pass
     
 
 # code
@@ -44,10 +55,10 @@ print("\t\tWelcome!")
 print(f"Today: {current_date}")
 
 # Create folder toDo_DATA
-try:
-    os.mkdir(dir_folder_data)
-except FileExistsError:
-    pass
+# try:
+#     os.mkdir(dir_folder_data)
+# except FileExistsError:
+#     pass
 
 print("""Menu:
 1-New ToDo List
