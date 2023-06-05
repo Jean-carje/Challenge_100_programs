@@ -5,20 +5,41 @@
 # Dependencies: None
 # System requirements: Windows, Mac, or Linux with Python 3.10 installed
 
+import os
 import os.path
 import datetime
-import pickle
+import sqlite3
 
 # variables
 current_date = datetime.date.today()
 file_data_source = os.getcwd()
 NAME_FOLDER_DATA = "toDo_DATA"
 dir_folder_data = os.path.join(file_data_source, NAME_FOLDER_DATA)
+data_today = {}
 
 # functions
-def new_toDo_list(name):
-    pass
+def create_database():
+    conn = sqlite3.connect('todo_list.db')
+    c = conn.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS tasks
+                 (date DATE, text TEXT)''')
+    conn.commit()
+    conn.close()
 
+def clear_terminal():
+    if os.name == 'nt':  # Windows
+        os.system('cls')
+    else:  # Unix/Linux/Mac
+        os.system('clear')
+
+def new_toDo_list(name):
+    clear_terminal()
+    print(f"\t\tToday: {current_date}")
+    print("[ ] ...")
+    print("\t1-Add\t2-modify\t3-delete")
+    
+
+# code
 print("\t\tWelcome!")
 print(f"Today: {current_date}")
 
