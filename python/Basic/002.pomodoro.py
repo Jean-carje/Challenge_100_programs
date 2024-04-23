@@ -1,57 +1,58 @@
 # # pomodoro.py - A simple pomodoro program
 # Author: Jean Estevez
 # Date: March 07, 2024
-# Language: Python 3.10
+# Language: Python 3.12
 # Dependencies: time
 # System requirements: Windows, Mac, or Linux with Python 3.10 installed
 
 
-import time 
+import time
 
-# values
-min_pomodoro = 25
-sec_pomodoro = 0
-min_rest = 5
-sec_rest = 0
+# Valores predeterminados
+MIN_POMODORO = 25
+SEC_POMODORO = 0
+MIN_REST = 5
+SEC_REST = 0
 
-# Bucle principal
-while True:
+def show_menu():
+    """Menu options."""
     print("""
-          select a option:
+          Select Option:
           1 - Start
-          2 - Reset
           """)
-    option = int(input(" ---> "))
 
-    if option == 2:
-        min_pomodoro = 25
-        sec_pomodoro = 0
-        min_rest = 5
-        sec_rest = 0
-    elif option == 1:
-        # Start Pomodoro
-        while min_pomodoro > 0 or sec_pomodoro > 0:
-            print(min_pomodoro, ":", sec_pomodoro)
-            if sec_pomodoro == 0 and min_pomodoro > 0:
-                min_pomodoro -= 1
-                sec_pomodoro = 59
-            else:
-                sec_pomodoro -= 1
-                time.sleep(1)
+def start_timer(minutes, seconds):
+    """Start Pomodoro and print minutes and seconds."""
+    while minutes > 0 or seconds > 0:
+        print(f"{minutes}:{seconds}")
+        if seconds == 0 and minutes > 0:
+            minutes -= 1
+            seconds = 59
+        else:
+            seconds -= 1
+            time.sleep(1)
 
-        # Start Rest
-        while min_rest > 0 or sec_rest > 0:
-            print(min_rest, ":", sec_rest)
-            if sec_rest == 0 and min_rest > 0:
-                min_rest -= 1
-                sec_rest = 59
-            else:
-                sec_rest -= 1
-                time.sleep(1)
-        
-        # Reset values
-        min_pomodoro = 25
-        sec_pomodoro = 0
-        min_rest = 5
-        sec_rest = 0
+# def reset_values():
+#     """Reset values"""
+#     return MIN_POMODORO, SEC_POMODORO, MIN_REST, SEC_REST
+
+def main():
+    """Main funtion."""
+
+    while True:
+        show_menu()
+        option = input(" ---> ")
+
+        # if option == '2':
+        #     MIN_POMODORO, SEC_POMODORO, MIN_REST, SEC_REST = reset_values()
+        if option == '1':
+            # Start Pomodoro
+            start_timer(MIN_POMODORO, SEC_POMODORO)
+            # rest time
+            start_timer(MIN_REST, SEC_REST)
+            # reset values
+            # MIN_POMODORO, SEC_POMODORO, MIN_REST, SEC_REST = reset_values()
+
+if __name__ == "__main__":
+    main()
 
