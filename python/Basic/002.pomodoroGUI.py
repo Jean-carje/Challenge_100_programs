@@ -14,10 +14,10 @@ class App:
         root.title("Pomodoro")
 
         # timers
-        self.MIN_POMODORO = 0
-        self.SEC_POMODORO = "03"
-        self.MIN_REST = 0
-        self.SEC_REST = "06"
+        self.MIN_POMODORO = 1
+        self.SEC_POMODORO = 3
+        self.MIN_REST = 2
+        self.SEC_REST = 6
 
         self.show_window()
 
@@ -37,13 +37,39 @@ class App:
         self.btn3.pack(side="left", padx=5)
 
     def start_timer(self):
-        pass
+        if self.MIN_POMODORO > 0 and self.SEC_POMODORO > 0:
+            self.update_timer(self.MIN_POMODORO, int(self.SEC_POMODORO))
+            self.MIN_POMODORO, self.SEC_POMODORO = 0, 0
+        else:
+            self.update_timer(self.MIN_REST, int(self.SEC_RMIN_REST))
+            self.MIN_REST, self.SEC_RMIN_REST = 0, 0
+
+
+    def update_timer(self, minute, seconds):
+
+        self.label.config(text=f'{minute}:{seconds}')
+
+        if minute == 0 and seconds == 0:
+            return None
+        
+        if seconds == 0:
+            minute -= 1
+            seconds = 59
+        else:
+            seconds -= 1
+
+        self.label.after(1000, lambda: self.update_timer(minute, seconds))
+
 
     def stop_timer(self):
         pass
 
     def reset_timer(self):
-        pass
+        self.MIN_POMODORO = 1
+        self.SEC_POMODORO = 3
+        self.MIN_REST = 2
+        self.SEC_REST = 6
+        self.label.config(text=f'{self.MIN_POMODORO}:{self.SEC_POMODORO}')
 
 
 if __name__ == "__main__":
