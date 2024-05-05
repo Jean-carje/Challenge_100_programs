@@ -19,11 +19,15 @@ class App:
         self.MIN_REST = 2
         self.SEC_REST = 6
 
+        # state timer
+        self.state_play = True
+        self.state_type = "Pomodoro"
+
         self.show_window()
 
     def show_window(self):
         # timer in window
-        self.label = tkinter.Label(self.root, text=f'{self.MIN_POMODORO}:{self.SEC_POMODORO}', bg="green", font=("Helvetica", 42))
+        self.label = tkinter.Label(self.root, text=f'{self.MIN_POMODORO:02d}:{self.SEC_POMODORO:02d}', bg="green", font=("Helvetica", 42))
         self.label.pack()
 
         # buttons 
@@ -37,18 +41,27 @@ class App:
         self.btn3.pack(side="left", padx=5)
 
     def start_timer(self):
-        if self.MIN_POMODORO > 0 and self.SEC_POMODORO > 0:
+        if self.MIN_POMODORO > 0 or self.SEC_POMODORO > 0:
+            self.state_type = "Pomodoro"  # It is used to check at stop, what time it was running
+            self.state_play = True
             self.update_timer(self.MIN_POMODORO, int(self.SEC_POMODORO))
-            self.MIN_POMODORO, self.SEC_POMODORO = 0, 0
         else:
-            self.update_timer(self.MIN_REST, int(self.SEC_RMIN_REST))
-            self.MIN_REST, self.SEC_RMIN_REST = 0, 0
+            self.state_type = "Rest"  # It is used to check at stop, what time it was running
+            self.update_timer(self.MIN_REST, int(self.SEC_REST))
 
 
     def update_timer(self, minute, seconds):
+        # update values timer
+        if self.state_type == "Pomodoro":
+            self.MIN_POMODORO = minute
+            self.SEC_POMODORO =  seconds
+        else:
+            self.MIN_REST = minute
+            self.SEC_REST = seconds
+    
+        self.label.config(text=f'{minute:02d}:{seconds:02d}')
 
-        self.label.config(text=f'{minute}:{seconds}')
-
+        # update minute and seconds
         if minute == 0 and seconds == 0:
             return None
         
@@ -58,18 +71,22 @@ class App:
         else:
             seconds -= 1
 
-        self.label.after(1000, lambda: self.update_timer(minute, seconds))
+        if self.state_play:
+            # To pause the execution of after, by pressing stop
+            self.label.after(1000, lambda: self.update_timer(minute, seconds))
 
 
     def stop_timer(self):
-        pass
+        self.state_play = False
 
     def reset_timer(self):
+        self.state_play = False
+
         self.MIN_POMODORO = 1
         self.SEC_POMODORO = 3
         self.MIN_REST = 2
         self.SEC_REST = 6
-        self.label.config(text=f'{self.MIN_POMODORO}:{self.SEC_POMODORO}')
+        self.label.config(text=f'{self.MIN_POMODORO:02d}:{self.SEC_POMODORO:02d}')
 
 
 if __name__ == "__main__":
